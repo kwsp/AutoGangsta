@@ -1,0 +1,66 @@
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  src: url(inconsolata.ttf) format("truetype");
+}
+
+html {
+  background: #171c28;
+  color: #d7dce2;
+  font-family: "Inconsolata", sans-serif;
+  line-height: 2rem;
+}
+
+.title {
+  text-decoration: none;
+  color: inherit;
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.upload-wrap {
+  position: relative;
+}
+
+input[type="file"] {
+  position: absolute;
+  z-index: -1;
+  top: 10px;
+  left: 8px;
+  font-size: 17px;
+  color: #b8b8b8;
+}
+
+.upload-button {
+  display: inline-block;
+  cursor: pointer;
+  background: #ffcc66;
+  color: #171c28;
+  padding: 0.1rem 1rem;
+}
+
+main {
+  text-align: center;
+  max-width: 500px;
+  margin: auto;
+  min-height: calc(100vh - 75px);
+}
+
+#rock {
+  width: 100%;
+}
+
+#result {
+  width: 100%;
+}
+
+footer {
+  text-align: center;
+  max-width: 500px;
+  margin: auto;
+}

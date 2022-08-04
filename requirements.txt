@@ -2,3 +2,5 @@ opencv-python
 dlib
 numpy
 imutils
+flask
+prometheus-client
