@@ -1,4 +1,3 @@
-from typing import Tuple
 from pathlib import Path
 from imutils import face_utils
 import imutils
