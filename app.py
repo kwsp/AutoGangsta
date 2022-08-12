@@ -67,10 +67,13 @@ def upload_file():
         return redirect(request.url)
 
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        orig_name = secure_filename(file.filename)
 
-        filename = f"tmp_{int(1000*time.time())}{os.path.splitext(filename)[-1]}"
+        filename = f"tmp_{int(1000*time.time())}{os.path.splitext(orig_name)[-1]}"
+        filename1 = f"{filename}.{orig_name}"
         filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        filepath1 = os.path.join(app.config["UPLOAD_FOLDER"], filename1)
+        file.save(filepath1)
 
         # Read image buffer from memory
         file.stream.seek(0)
@@ -105,7 +108,6 @@ def api_upload():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-
         filename = f"tmp_{int(1000*time.time())}{os.path.splitext(filename)[-1]}"
         filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
 
