@@ -1,34 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <title>Auto Gangsta</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<style>
-main {
-  text-align: center;
-}
-#rock {
-  width: 100%;
-  max-width: 500px;
-}
-#result {
-  width: 100%;
-  max-width: 500px;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="static/main.css" />
 
 <main>
-<h1>Gangstarify your image!</h1>
-<img id="rock" src="/static/rock.jpg" width=500>
-<form method=post enctype=multipart/form-data>
-  <input type="file" name="file">
-  <input type="submit" value="Gangstarify">
-</form>
+  <a class="title" href="/">
+    <h1>Auto Gangsta</h1>
+  </a>
+  <span>Upload an image, we'll make it <i>cooler</i> 😎</span>
 
-{% if msg %}
-  <p>{{ msg }}</p>
-{% endif %}
-{% if res_url %}
-  <img id="result" src="{{ res_url }}" width=500>
-{% endif %}
+  {% if res_url %}
+  <img id="result" src="{{ res_url }}" width="500" />
+  {% else %}
+  <img id="rock" src="/static/rock.jpg" width="500" />
+  {% endif %} {% if msg %}
+  <span>{{ msg }}</span>
+  <br />
+  {% endif %}
 
+  <form method="post" enctype="multipart/form-data">
+    <div class="upload-wrap">
+      <label class="upload-button" for="upload">Upload image</label>
+      <input
+        type="file"
+        name="file"
+        id="upload"
+        onchange="form.submit()"
+        hidden
+      />
+    </div>
+  </form>
 </main>
+
+<footer>
+  <span><a href="https://github.com/kwsp/AutoGangsta">Github</a></span>
+</footer>
