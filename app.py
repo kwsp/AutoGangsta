@@ -78,6 +78,9 @@ def upload_file():
         # Read image buffer from memory
         file.stream.seek(0)
         array = np.asarray(bytearray(file.stream.read()), dtype=np.uint8)
+        if array.size < 0:
+            return
+
         img = cv2.imdecode(array, cv2.IMREAD_COLOR)
 
         # img = cv2.imread(filepath)
