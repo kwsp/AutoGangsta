@@ -18,6 +18,7 @@ from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app, Summary
 
 import gangster
+import numpy as np
 import cv2
 
 
@@ -70,12 +71,16 @@ def upload_file():
 
         filename = f"tmp_{int(1000*time.time())}{os.path.splitext(filename)[-1]}"
         filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file.save(filepath)
 
-        img = cv2.imread(filepath)
+        # Read image buffer from memory
+        file.stream.seek(0)
+        array = np.asarray(bytearray(file.stream.read()), dtype=np.uint8)
+        img = cv2.imdecode(array, cv2.IMREAD_COLOR)
+
+        # img = cv2.imread(filepath)
         n_faces = gangster.make_gangster(img)
         cv2.imwrite(filepath, img)
-        res_url = url_for("uploaded_file", filename=filename)
+        img_url = url_for("uploaded_file", filename=filename)
         if n_faces == 0:
             msg = "No faces found"
         elif n_faces == 1:
@@ -83,7 +88,7 @@ def upload_file():
         else:
             msg = f"Found {n_faces} faces"
 
-        return render_template("index.html", res_url=res_url, msg=msg)
+        return render_template("index.html", img_url=img_url, msg=msg)
     return render_template("index.html")
 
 
@@ -103,9 +108,12 @@ def api_upload():
 
         filename = f"tmp_{int(1000*time.time())}{os.path.splitext(filename)[-1]}"
         filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-        file.save(filepath)
 
-        img = cv2.imread(filepath)
+        # Read image buffer from memory
+        file.stream.seek(0)
+        array = np.asarray(bytearray(file.stream.read()), dtype=np.uint8)
+        img = cv2.imdecode(array, cv2.IMREAD_COLOR)
+
         gangster.make_gangster(img)
         cv2.imwrite(filepath, img)
 
