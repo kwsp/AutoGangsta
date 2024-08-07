@@ -23,6 +23,16 @@ a {
   color: inherit;
 }
 
+#msg {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.highlight {
+  background: #ffcc66;
+  color: #171c28;
+}
+
 .upload-wrap {
   position: relative;
 }
